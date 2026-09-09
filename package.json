@@ -1,0 +1,19 @@
+{
+  "name": "codeheal-x",
+  "version": "1.0.0",
+  "description": "CodeHeal X — Autonomous Backend Repair Engineer powered by Claude AI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "@anthropic-ai/sdk": "^0.24.3"
+  },
+  "keywords": ["ai", "backend", "repair", "debugging", "anthropic", "claude"],
+  "license": "MIT"
+}

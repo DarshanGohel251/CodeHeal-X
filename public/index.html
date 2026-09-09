@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CodeHeal X — AI-powered autonomous backend repair engine. Diagnose failures, generate patches, verify repairs with Claude AI.">
+    <meta name="theme-color" content="#0d0f14">
+    <title>CodeHeal X — Autonomous Backend Repair Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ─── Navigation ─────────────────────────────────────────────────────────── -->
+<nav class="topnav" role="banner">
+    <div class="topnav-left">
+        <div class="brand">
+            <span class="brand-icon">⬡</span>
+            <div class="brand-text">
+                <span class="brand-name">CODEHEAL X</span>
+                <span class="brand-sub">Autonomous Backend Repair Engineer</span>
+            </div>
+        </div>
+        <div class="system-status" id="systemStatus">
+            <span class="status-dot status-online" aria-label="System online"></span>
+            <span class="status-label">SYSTEM ONLINE</span>
+        </div>
+    </div>
+    <div class="topnav-right">
+        <div class="engine-badge">
+            <span class="engine-label">AI ENGINE</span>
+            <span class="engine-name">Gemini</span>
+        </div>
+        <div class="version-badge">v1.0 · MVP</div>
+    </div>
+</nav>
+
+<!-- ─── Hero ───────────────────────────────────────────────────────────────── -->
+<section class="hero" aria-label="Product introduction">
+    <div class="hero-bg">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
+    </div>
+    <div class="hero-content">
+        <div class="hero-tag">AUTONOMOUS CODE REPAIR</div>
+        <h1 class="hero-title">
+            Your backend breaks.<br>
+            <span class="hero-accent">CodeHeal finds out why.</span>
+        </h1>
+        <p class="hero-sub">Analyze failures. Generate patches. Verify the repair — powered by Gemini AI.</p>
+        <div class="hero-pipeline" aria-label="Repair pipeline steps">
+            <span class="pipe-step">SCAN</span>
+            <span class="pipe-arrow">→</span>
+            <span class="pipe-step">ANALYZE</span>
+            <span class="pipe-arrow">→</span>
+            <span class="pipe-step">PATCH</span>
+            <span class="pipe-arrow">→</span>
+            <span class="pipe-step">VERIFY</span>
+        </div>
+    </div>
+</section>
+
+<!-- ─── Main Workspace ─────────────────────────────────────────────────────── -->
+<main class="workspace" role="main">
+
+    <!-- ─── AI Engine Config ──────────────────────────────────────────────── -->
+    <section class="config-section" aria-label="AI Engine Configuration">
+        <div class="card config-card">
+            <div class="card-header">
+                <span class="card-icon">⚙</span>
+                <span class="card-title">AI ENGINE CONFIGURATION</span>
+            </div>
+            <div class="config-body">
+                <div class="input-group">
+                    <label class="input-label" for="apiKey">Gemini API Key</label>
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            id="apiKey"
+                            class="input-field api-key-input"
+                            placeholder="Enter the API key"
+                            autocomplete="off"
+                            autocorrect="off"
+                            autocapitalize="off"
+                            spellcheck="false"
+                            aria-label="Gemini API Key"
+                            aria-describedby="apiKeyHint"
+                        >
+                        <button
+                            type="button"
+                            class="show-hide-btn"
+                            id="toggleApiKey"
+                            aria-label="Toggle API key visibility"
+                            title="Show / Hide key"
+                        >
+                            <span id="eyeIcon">👁</span>
+                        </button>
+                    </div>
+                    <div class="security-hint" id="apiKeyHint">
+                        <span class="hint-dot">●</span> Session-only &nbsp;·&nbsp;
+                        <span class="hint-dot">●</span> Never stored &nbsp;·&nbsp;
+                        🔒 Your API key is used only for this repair session and is never stored by CodeHeal X.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Source / Error Input ──────────────────────────────────────────── -->
+    <section class="inputs-section" aria-label="Code input panels">
+        <div class="input-columns">
+
+            <!-- Left: Broken Code -->
+            <div class="card input-card" id="codeCard">
+                <div class="card-header">
+                    <span class="card-icon">📄</span>
+                    <span class="card-title">SOURCE CODE</span>
+                    <div class="card-meta" id="codeMeta">Language: Auto-detect · Lines: 0</div>
+                </div>
+                <div class="editor-wrapper">
+                    <div class="editor-lines" id="codeLines" aria-hidden="true"></div>
+                    <textarea
+                        id="brokenCode"
+                        class="code-editor"
+                        placeholder="Paste your broken backend code here..."
+                        spellcheck="false"
+                        aria-label="Broken source code"
+                        aria-describedby="codeMeta"
+                    ></textarea>
+                </div>
+            </div>
+
+            <!-- Right: Error Log -->
+            <div class="card input-card" id="logCard">
+                <div class="card-header">
+                    <span class="card-icon">⚠</span>
+                    <span class="card-title">ERROR LOG</span>
+                    <div class="card-meta">Stack trace / Exception / Failed test output</div>
+                </div>
+                <div class="editor-wrapper">
+                    <div class="editor-lines" id="logLines" aria-hidden="true"></div>
+                    <textarea
+                        id="errorLog"
+                        class="code-editor log-editor"
+                        placeholder="Paste stack trace, exception, or failed test output here..."
+                        spellcheck="false"
+                        aria-label="Error log or stack trace"
+                    ></textarea>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ─── Action Bar ────────────────────────────────────────────────────── -->
+    <section class="action-section" aria-label="Actions">
+        <div class="action-bar">
+            <button
+                type="button"
+                class="btn-demo"
+                id="loadDemoBtn"
+                aria-label="Load demo bug"
+            >
+                ⬇ LOAD DEMO BUG
+            </button>
+            <button
+                type="button"
+                class="btn-repair"
+                id="repairBtn"
+                aria-label="Start autonomous repair"
+            >
+                <span class="btn-repair-inner">
+                    <span class="btn-icon">⚡</span>
+                    <span class="btn-text" id="repairBtnText">START AUTONOMOUS REPAIR</span>
+                </span>
+                <span class="btn-glow"></span>
+            </button>
+            <button
+                type="button"
+                class="btn-reset"
+                id="resetBtn"
+                aria-label="Reset session"
+            >
+                ↺ RESET SESSION
+            </button>
+        </div>
+    </section>
+
+    <!-- ─── Progress Tracker ──────────────────────────────────────────────── -->
+    <section class="progress-section" id="progressSection" aria-label="Repair progress" aria-live="polite">
+        <div class="card progress-card">
+            <div class="card-header">
+                <span class="card-icon">◉</span>
+                <span class="card-title">REPAIR PROGRESS</span>
+            </div>
+            <div class="progress-pipeline">
+                <div class="pipe-node" id="pnode-scan" data-label="SCAN">
+                    <div class="pipe-circle"><span class="pipe-num">01</span></div>
+                    <div class="pipe-node-label">SCAN</div>
+                </div>
+                <div class="pipe-connector" id="pconn-1"></div>
+                <div class="pipe-node" id="pnode-analyze" data-label="ANALYZE">
+                    <div class="pipe-circle"><span class="pipe-num">02</span></div>
+                    <div class="pipe-node-label">ANALYZE</div>
+                </div>
+                <div class="pipe-connector" id="pconn-2"></div>
+                <div class="pipe-node" id="pnode-patch" data-label="PATCH">
+                    <div class="pipe-circle"><span class="pipe-num">03</span></div>
+                    <div class="pipe-node-label">PATCH</div>
+                </div>
+                <div class="pipe-connector" id="pconn-3"></div>
+                <div class="pipe-node" id="pnode-test" data-label="TEST">
+                    <div class="pipe-circle"><span class="pipe-num">04</span></div>
+                    <div class="pipe-node-label">TEST</div>
+                </div>
+                <div class="pipe-connector" id="pconn-4"></div>
+                <div class="pipe-node" id="pnode-verified" data-label="VERIFIED">
+                    <div class="pipe-circle"><span class="pipe-num">05</span></div>
+                    <div class="pipe-node-label">VERIFIED</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Agent Terminal ────────────────────────────────────────────────── -->
+    <section class="terminal-section" id="terminalSection" aria-label="Repair agent console" aria-live="polite">
+        <div class="card terminal-card">
+            <div class="card-header terminal-header">
+                <div class="terminal-title-group">
+                    <span class="card-icon term-icon">▶</span>
+                    <span class="card-title">REPAIR AGENT</span>
+                </div>
+                <div class="terminal-live-badge">
+                    <span class="live-dot" aria-hidden="true"></span>
+                    <span>LIVE</span>
+                </div>
+            </div>
+            <div class="terminal-body" id="terminalBody" role="log" aria-label="Agent output">
+                <div class="terminal-prompt">$ codeheal-agent --repair --mode=autonomous</div>
+                <div id="terminalLines"></div>
+                <div class="terminal-cursor" id="termCursor" aria-hidden="true"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Error Banner ──────────────────────────────────────────────────── -->
+    <div class="error-banner" id="errorBanner" role="alert" aria-live="assertive">
+        <div class="error-banner-inner">
+            <span class="error-icon">✕</span>
+            <div class="error-text">
+                <div class="error-title" id="errorTitle">Error</div>
+                <div class="error-msg" id="errorMsg"></div>
+            </div>
+            <button class="error-close" id="errorClose" aria-label="Dismiss error">✕</button>
+        </div>
+    </div>
+
+    <!-- ─── Results ───────────────────────────────────────────────────────── -->
+    <section class="results-section" id="resultsSection" aria-label="Repair results" aria-live="polite">
+
+        <!-- Root Cause -->
+        <div class="card result-card root-cause-card">
+            <div class="card-header">
+                <span class="card-icon">🔍</span>
+                <span class="card-title">ROOT CAUSE IDENTIFIED</span>
+                <div class="badge badge-success">AI DIAGNOSED</div>
+            </div>
+            <div class="root-cause-body">
+                <p class="root-cause-text" id="rootCauseText"></p>
+            </div>
+        </div>
+
+        <!-- Patch Status Badges -->
+        <div class="patch-status-row">
+            <div class="status-badge-card">
+                <span class="sbadge sbadge-green" id="sb-generated">
+                    <span class="sbadge-dot">●</span> PATCH GENERATED
+                </span>
+            </div>
+            <div class="status-badge-card">
+                <span class="sbadge sbadge-green" id="sb-validated">
+                    <span class="sbadge-dot">●</span> VALIDATION PASSED
+                </span>
+            </div>
+            <div class="status-badge-card">
+                <span class="sbadge sbadge-green" id="sb-tests">
+                    <span class="sbadge-dot">●</span> 47/47 TESTS PASSED
+                </span>
+            </div>
+            <div class="status-badge-card">
+                <span class="sbadge sbadge-green sbadge-pulse" id="sb-verified">
+                    <span class="sbadge-dot">●</span> REPAIR VERIFIED
+                </span>
+            </div>
+        </div>
+
+        <!-- Before / After -->
+        <div class="before-after-row">
+            <div class="card ba-card before-card">
+                <div class="card-header">
+                    <span class="ba-tag ba-tag-before">BEFORE</span>
+                    <span class="card-title">BROKEN SOURCE</span>
+                </div>
+                <div class="code-view-wrapper">
+                    <pre class="code-view" id="beforeCode"></pre>
+                </div>
+            </div>
+
+            <div class="ba-arrow-col">
+                <div class="ba-arrow">↓</div>
+                <div class="ba-arrow-label">AI PATCH</div>
+                <div class="ba-arrow">↓</div>
+            </div>
+
+            <div class="card ba-card after-card">
+                <div class="card-header">
+                    <span class="ba-tag ba-tag-after">AFTER</span>
+                    <span class="card-title">VERIFIED SOURCE</span>
+                </div>
+                <div class="code-view-wrapper">
+                    <pre class="code-view" id="afterCode"></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fixed Code Viewer -->
+        <div class="card code-viewer-card">
+            <div class="card-header code-viewer-header">
+                <div class="code-viewer-title-group">
+                    <span class="card-icon">✓</span>
+                    <span class="card-title">FIXED CODE</span>
+                    <div class="badge badge-success">REPAIR VERIFIED</div>
+                </div>
+                <button class="btn-copy" id="copyBtn" aria-label="Copy fixed code to clipboard">
+                    COPY CODE
+                </button>
+            </div>
+            <div class="code-viewer-body">
+                <div class="line-numbers" id="lineNumbers" aria-hidden="true"></div>
+                <pre class="code-output" id="fixedCode" tabindex="0" aria-label="Fixed source code"></pre>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- ─── Footer ────────────────────────────────────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+        <span class="footer-brand">CODEHEAL X</span>
+        <span class="footer-sep">·</span>
+        <span>Simulated test environment — code execution is not performed on your machine</span>
+        <span class="footer-sep">·</span>
+        <span>Powered by Claude AI</span>
+    </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
